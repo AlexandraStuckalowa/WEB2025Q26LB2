@@ -75,7 +75,20 @@ form.addEventListener('submit', (e) => {
   }
 
   li.appendChild(spanTitle);
-  taskList.appendChild(li);
+
+// Кнопка для удаления задачи
+const deleteButton = document.createElement('button');
+deleteButton.className = 'delete-btn';
+deleteButton.textContent = 'Удалить';
+li.appendChild(deleteButton);
+
+// Обработчик на кнопку удаления
+deleteButton.addEventListener('click', () => {
+  li.remove();
+});
+
+taskList.appendChild(li);
+
 
   // очистка полей формы
   inputText.value = '';
