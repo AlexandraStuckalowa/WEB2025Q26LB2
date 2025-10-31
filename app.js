@@ -58,5 +58,27 @@ form.addEventListener('submit', (e) => {
     // пустая задача не добавляется
     return;
   }
+  // создаём элемент задачи и добавляем в список
+  const li = document.createElement('li');
+  li.className = 'task-item';
+
+  const spanTitle = document.createElement('span');
+  spanTitle.className = 'task-title';
+  spanTitle.textContent = title;
+
+  // дата (если указана)
+  if (due) {
+    const spanDate = document.createElement('span');
+    spanDate.className = 'task-date';
+    spanDate.textContent = due;
+    li.appendChild(spanDate);
+  }
+
+  li.appendChild(spanTitle);
+  taskList.appendChild(li);
+
+  // очистка полей формы
+  inputText.value = '';
+  inputDate.value = '';
 });
 
