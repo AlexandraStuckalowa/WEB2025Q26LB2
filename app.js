@@ -19,3 +19,7 @@ const inputText = document.createElement('input');
 inputText.type = 'text';
 inputText.placeholder = 'Введите задачу...';
 inputText.required = true;
+
+// Поле для выбора даты
+const inputDate = document.createElement('input');
+inputDate.type = 'date';
