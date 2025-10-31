@@ -142,6 +142,18 @@ function addTask({ title, due = '', completed = false }) {
   editButton.textContent = 'Редактировать';
   li.appendChild(editButton);
 
+  //начало или конец перетаскивания
+li.addEventListener('dragstart', (e) => {
+  li.classList.add('dragging');
+  // передадим индекс элемента
+  e.dataTransfer.setData('text/plain', '');
+});
+
+li.addEventListener('dragend', () => {
+  li.classList.remove('dragging');
+});
+
+
   //отметка выполнено
   doneButton.addEventListener('click', () => {
     li.classList.toggle('completed');
