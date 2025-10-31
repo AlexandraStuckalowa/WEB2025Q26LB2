@@ -42,3 +42,8 @@ taskList.className = 'task-list';
 // Добавляем основу на сайт
 app.appendChild(taskList);
 
+// Добавляем обработчик отправки формы
+form.addEventListener('submit', (e) => {
+  e.preventDefault(); // не перезагружать страницу
+});
+
