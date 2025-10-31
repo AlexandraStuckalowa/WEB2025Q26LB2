@@ -102,6 +102,127 @@ taskList.className = 'task-list';
 // Добавляем основу на сайт
 app.appendChild(taskList);
 
+// функция создания одной задачи
+function addTask({ title, due = '', completed = false }) {
+  const li = document.createElement('li');
+  li.className = 'task-item';
+  li.dataset.status = completed ? 'done' : 'active';
+  li.dataset.date = due || '';
+
+  // заголовок
+  const spanTitle = document.createElement('span');
+  spanTitle.className = 'task-title';
+  spanTitle.textContent = title;
+  li.appendChild(spanTitle);
+
+  // если есть дата 
+  if (due) {
+    const spanDate = document.createElement('span');
+    spanDate.className = 'task-date';
+    spanDate.textContent = due;
+    li.appendChild(spanDate);
+  }
+
+  // кнопки
+  const deleteButton = document.createElement('button');
+  deleteButton.className = 'delete-btn';
+  deleteButton.textContent = 'Удалить';
+  li.appendChild(deleteButton);
+
+  const doneButton = document.createElement('button');
+  doneButton.className = 'done-btn';
+  doneButton.textContent = 'Выполнено';
+  li.appendChild(doneButton);
+
+  const editButton = document.createElement('button');
+  editButton.className = 'edit-btn';
+  editButton.textContent = 'Редактировать';
+  li.appendChild(editButton);
+
+  // отметка выполнено
+  doneButton.addEventListener('click', () => {
+    li.classList.toggle('completed');
+    li.dataset.status = li.classList.contains('completed') ? 'done' : 'active';
+    saveState();
+  });
+
+  // удаление
+  deleteButton.addEventListener('click', () => {
+    li.remove();
+    saveState();
+  });
+
+  let isEditing = false;
+  editButton.addEventListener('click', () => {
+    if (!isEditing) {
+      isEditing = true;
+      editButton.textContent = 'Сохранить';
+
+      const titleSpan = li.querySelector('.task-title');
+      let dateSpan = li.querySelector('.task-date');
+
+      const titleInput = document.createElement('input');
+      titleInput.type = 'text';
+      titleInput.value = titleSpan.textContent;
+      titleInput.className = 'edit-title';
+
+      const dateInput = document.createElement('input');
+      dateInput.type = 'date';
+      dateInput.value = dateSpan ? dateSpan.textContent : '';
+
+      li.replaceChild(titleInput, titleSpan);
+      if (dateSpan) {
+        li.replaceChild(dateInput, dateSpan);
+      } else {
+        li.insertBefore(dateInput, deleteButton);
+      }
+    } else {
+      isEditing = false;
+      editButton.textContent = 'Редактировать';
+
+      const titleInput = li.querySelector('.edit-title') || li.querySelector('input[type="text"]');
+      const dateInput = li.querySelector('input[type="date"]');
+
+      const newTitle = (titleInput?.value || '').trim();
+      const newDate  = dateInput?.value || '';
+
+      const newTitleSpan = document.createElement('span');
+      newTitleSpan.className = 'task-title';
+      newTitleSpan.textContent = newTitle || '(без названия)';
+
+      let dateSpan = li.querySelector('.task-date');
+
+      if (newDate) {
+        if (!dateSpan) {
+          dateSpan = document.createElement('span');
+          dateSpan.className = 'task-date';
+          li.insertBefore(dateSpan, deleteButton);
+        }
+        dateSpan.textContent = newDate;
+        if (dateInput && dateSpan.parentNode) {
+          li.replaceChild(dateSpan, dateInput);
+        }
+      } else {
+        if (dateSpan) dateSpan.remove();
+        if (dateInput) dateInput.remove();
+      }
+
+      if (titleInput) {
+        li.replaceChild(newTitleSpan, titleInput);
+      }
+
+      // обновим дату и сохраним
+      li.dataset.date = newDate || '';
+      saveState();
+    }
+  });
+
+  if (completed) li.classList.add('completed');
+
+  taskList.appendChild(li);
+  return li;
+}
+
 // Добавляем обработчик отправки формы
 form.addEventListener('submit', (e) => {
   e.preventDefault(); 
