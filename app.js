@@ -82,6 +82,16 @@ statusFilter.innerHTML = `
 `;
 controls.appendChild(statusFilter);
 
+// Сортировка по дате
+const sortSelect = document.createElement('select');
+sortSelect.className = 'date-sort';
+sortSelect.innerHTML = `
+  <option value="none">Без сортировки</option>
+  <option value="asc">По дате ↑</option>
+  <option value="desc">По дате ↓</option>
+`;
+controls.appendChild(sortSelect);
+
 // Добавляем основу для списка задач
 const taskList = document.createElement('ul');
 taskList.className = 'task-list';
