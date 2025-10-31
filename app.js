@@ -65,6 +65,13 @@ const controls = document.createElement('div');
 controls.className = 'controls';
 app.appendChild(controls);
 
+// Поиск по названию
+const searchInput = document.createElement('input');
+searchInput.type = 'search';
+searchInput.placeholder = 'Поиск по названию...';
+searchInput.className = 'search';
+controls.appendChild(searchInput);
+
 // Добавляем основу для списка задач
 const taskList = document.createElement('ul');
 taskList.className = 'task-list';
