@@ -16,12 +16,14 @@ styleBase.textContent = `
   .task-list { list-style: none; padding: 0; margin: 12px 0; display: grid; gap: 8px; }
   .task-item { display: flex; justify-content: space-between; align-items: center; gap: 8px; padding: 10px; border: 1px solid #ddd; border-radius: 8px; flex-wrap: wrap; }
   .task-date { text-align: right; }
-
   .delete-btn, .done-btn { padding: 6px 10px; border-radius: 6px; border: 1px solid #ccc; background: #f5f5f5; cursor: pointer; width: auto; display: inline-block; text-align: center; min-width: 32px; }
   .edit-btn { padding: 6px 10px; border-radius: 6px; border: 1px solid #ccc; background: #f5f5f5; cursor: pointer; }
   .controls { display: flex; gap: 8px; margin: 8px 0 12px; }
   .controls .search, .controls select { padding: 8px; border: 1px solid #ddd; border-radius: 6px; }
   .controls .search { flex: 1; }
+  .task-item { user-select: none; }
+  .task-item.dragging { opacity: .6; }
+  .task-item.drop-target { outline: 2px dashed #999; }
 
 `;
 document.head.appendChild(styleBase);
@@ -278,3 +280,31 @@ sortSelect.addEventListener('change', () => {
   // изменяем порядок
   items.forEach(el => taskList.appendChild(el));
 });
+
+//LocalStorage
+const STORAGE_KEY = 'todo-tasks';
+
+function saveState() {
+  const data = [...taskList.children].map(li => ({
+    title: li.querySelector('.task-title')?.textContent || '',
+    due:   li.dataset.date || '',
+    completed: li.dataset.status === 'done'
+  }));
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+}
+
+function loadState() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return;
+    const list = JSON.parse(raw);
+    if (Array.isArray(list)) {
+      list.forEach(t => addTask(t));
+    }
+  } catch (e) {
+    console.warn('Не удалось загрузить задачи из localStorage', e);
+  }
+}
+
+// загрузка при старте
+loadState();
