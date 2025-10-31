@@ -321,3 +321,39 @@ function loadState() {
 
 // загрузка при старте
 loadState();
+
+// Drag and drop
+
+// Поиск места, куда вставляется задача при перетаскивании
+function getInsertAfterElement(container, y) {
+  const els = [...container.querySelectorAll('.task-item:not(.dragging)')];
+  let closest = { offset: Number.NEGATIVE_INFINITY, element: null };
+
+  for (const el of els) {
+    const box = el.getBoundingClientRect();
+    const offset = y - box.top - box.height / 2;
+    if (offset > 0 && offset > closest.offset) {
+      closest = { offset, element: el };
+    }
+  }
+  return closest.element;
+}
+
+// Разрешаем перетаскивание внутри списка
+taskList.addEventListener('dragover', (e) => {
+  e.preventDefault();
+  const afterElement = getInsertAfterElement(taskList, e.clientY);
+  const dragging = taskList.querySelector('.dragging');
+  if (!dragging) return;
+
+  if (afterElement == null) {
+    taskList.prepend(dragging);
+  } else {
+    afterElement.after(dragging);
+  }
+});
+
+// Сохраняем порядок после отпускания
+taskList.addEventListener('drop', () => {
+  saveState && saveState();
+});
