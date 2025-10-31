@@ -119,6 +119,14 @@ editButton.className = 'edit-btn';
 editButton.textContent = 'Редактировать';
 li.appendChild(editButton);
 
+// Заготовка: переключение режима редактирования
+let isEditing = false;
+editButton.addEventListener('click', () => {
+  isEditing = !isEditing;
+  editButton.textContent = isEditing ? 'Сохранить' : 'Редактировать';
+});
+
+
 // В обработчике отметить задачу как выполненную
 doneButton.addEventListener('click', () => {
   li.classList.toggle('completed');
