@@ -119,13 +119,77 @@ editButton.className = 'edit-btn';
 editButton.textContent = 'Редактировать';
 li.appendChild(editButton);
 
-// Заготовка: переключение режима редактирования
+// Редактирование текста и даты
 let isEditing = false;
 editButton.addEventListener('click', () => {
-  isEditing = !isEditing;
-  editButton.textContent = isEditing ? 'Сохранить' : 'Редактировать';
-});
+  if (!isEditing) {
+    // включить режим редактирования
+    isEditing = true;
+    editButton.textContent = 'Сохранить';
 
+    // существующие элементы
+    const titleSpan = li.querySelector('.task-title');
+    let dateSpan = li.querySelector('.task-date');
+
+    // поля ввода 
+    const titleInput = document.createElement('input');
+    titleInput.type = 'text';
+    titleInput.value = titleSpan.textContent;
+    titleInput.className = 'edit-title';
+
+    // если даты не было - создадим пустое поле
+    const dateInput = document.createElement('input');
+    dateInput.type = 'date';
+    dateInput.value = dateSpan ? dateSpan.textContent : '';
+
+    // подменяем элементы в DOM
+    li.replaceChild(titleInput, titleSpan);
+
+    if (dateSpan) {
+      li.replaceChild(dateInput, dateSpan);
+    } else {
+      // вставим поле даты сразу после заголовка
+      li.insertBefore(dateInput, deleteButton);
+    }
+
+  } else {
+    // сохраняем изменения
+    isEditing = false;
+    editButton.textContent = 'Редактировать';
+
+    // находим поля ввода
+    const titleInput = li.querySelector('.edit-title') || li.querySelector('input[type="text"]');
+    const dateInput = li.querySelector('input[type="date"]');
+
+    const newTitle = (titleInput?.value || '').trim();
+    const newDate = dateInput?.value || '';
+
+    // создаём или восстанавливаем спаны
+    const newTitleSpan = document.createElement('span');
+    newTitleSpan.className = 'task-title';
+    newTitleSpan.textContent = newTitle || '(без названия)';
+
+    let dateSpan = li.querySelector('.task-date');
+
+    // если есть дата, то спан должен быть. Если пусто, то удаляем или не создаём
+    if (newDate) {
+      if (!dateSpan) {
+        dateSpan = document.createElement('span');
+        dateSpan.className = 'task-date';
+        // вставим перед кнопками, чтобы сохранить порядок
+        li.insertBefore(dateSpan, deleteButton);
+      }
+      dateSpan.textContent = newDate;
+    } else if (dateSpan) {
+      dateSpan.remove();
+    }
+
+    // заменяем поле ввода заголовка обратно на спан
+    if (titleInput) {
+      li.replaceChild(newTitleSpan, titleInput);
+    }
+  }
+});
 
 // В обработчике отметить задачу как выполненную
 doneButton.addEventListener('click', () => {
