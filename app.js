@@ -260,3 +260,13 @@ searchInput.addEventListener('input', () => {
     li.style.display = title.includes(q) ? '' : 'none';
   });
 });
+
+//Фильтрация по статусу
+statusFilter.addEventListener('change', () => {
+  const need = statusFilter.value; // all|active|done
+  [...taskList.children].forEach(li => {
+    const st = li.dataset.status || 'active';
+    li.style.display = (need === 'all' || st === need) ? '' : 'none';
+  });
+});
+
