@@ -23,3 +23,8 @@ inputText.required = true;
 // Поле для выбора даты
 const inputDate = document.createElement('input');
 inputDate.type = 'date';
+
+// Кнопка для добавления задачи
+const addButton = document.createElement('button');
+addButton.type = 'submit';
+addButton.textContent = 'Добавить';
