@@ -252,3 +252,11 @@ taskList.appendChild(li);
   inputDate.value = '';
 });
 
+// Фильтрация по поиску
+searchInput.addEventListener('input', () => {
+  const q = searchInput.value.trim().toLowerCase();
+  [...taskList.children].forEach(li => {
+    const title = (li.querySelector('.task-title')?.textContent || '').toLowerCase();
+    li.style.display = title.includes(q) ? '' : 'none';
+  });
+});
