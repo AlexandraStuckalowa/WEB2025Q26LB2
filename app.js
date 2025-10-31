@@ -72,6 +72,16 @@ searchInput.placeholder = 'Поиск по названию...';
 searchInput.className = 'search';
 controls.appendChild(searchInput);
 
+// Фильтр по статусу
+const statusFilter = document.createElement('select');
+statusFilter.className = 'status-filter';
+statusFilter.innerHTML = `
+  <option value="all">Все</option>
+  <option value="active">Невыполнено</option>
+  <option value="done">Выполнено</option>
+`;
+controls.appendChild(statusFilter);
+
 // Добавляем основу для списка задач
 const taskList = document.createElement('ul');
 taskList.className = 'task-list';
