@@ -18,6 +18,7 @@ styleBase.textContent = `
   .task-date { text-align: right; }
 
   .delete-btn, .done-btn { padding: 6px 10px; border-radius: 6px; border: 1px solid #ccc; background: #f5f5f5; cursor: pointer; width: auto; display: inline-block; text-align: center; min-width: 32px; }
+  .edit-btn { padding: 6px 10px; border-radius: 6px; border: 1px solid #ccc; background: #f5f5f5; cursor: pointer; }
 
 `;
 document.head.appendChild(styleBase);
