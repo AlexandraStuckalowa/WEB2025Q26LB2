@@ -104,20 +104,21 @@ taskList.className = 'task-list';
 // Добавляем основу на сайт
 app.appendChild(taskList);
 
-// функция создания одной задачи
+//функция создания одной задачи
 function addTask({ title, due = '', completed = false }) {
   const li = document.createElement('li');
   li.className = 'task-item';
+  li.draggable = true;
   li.dataset.status = completed ? 'done' : 'active';
   li.dataset.date = due || '';
 
-  // заголовок
+  //заголовок
   const spanTitle = document.createElement('span');
   spanTitle.className = 'task-title';
   spanTitle.textContent = title;
   li.appendChild(spanTitle);
 
-  // если есть дата 
+  //если есть дата 
   if (due) {
     const spanDate = document.createElement('span');
     spanDate.className = 'task-date';
@@ -141,14 +142,14 @@ function addTask({ title, due = '', completed = false }) {
   editButton.textContent = 'Редактировать';
   li.appendChild(editButton);
 
-  // отметка выполнено
+  //отметка выполнено
   doneButton.addEventListener('click', () => {
     li.classList.toggle('completed');
     li.dataset.status = li.classList.contains('completed') ? 'done' : 'active';
     saveState();
   });
 
-  // удаление
+  //удаление
   deleteButton.addEventListener('click', () => {
     li.remove();
     saveState();
