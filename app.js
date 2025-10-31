@@ -47,3 +47,16 @@ form.addEventListener('submit', (e) => {
   e.preventDefault(); // не перезагружать страницу
 });
 
+// В обработчике: подготовка данных из формы
+form.addEventListener('submit', (e) => {
+  e.preventDefault();
+
+  const title = inputText.value.trim();
+  const due = inputDate.value || null;
+
+  if (!title) {
+    // пустая задача не добавляется
+    return;
+  }
+});
+
