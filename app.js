@@ -1,4 +1,4 @@
-// Как выглядит выполненная задача
+// Как выглядит выполненная задача (серая и зачеркнута)
 const styleCompleted = document.createElement('style');
 styleCompleted.textContent = `
   .task-item.completed .task-title {
@@ -7,6 +7,17 @@ styleCompleted.textContent = `
   }
 `;
 document.head.appendChild(styleCompleted);
+
+// Как выглядит  базовая раскладка списка и кнопок
+const styleBase = document.createElement('style');
+styleBase.textContent = `
+  .app { max-width: 760px; margin: 24px auto; font-family: system-ui, Arial, sans-serif; }
+  .task-form { display: grid; grid-template-columns: 1fr 160px auto; gap: 8px; margin: 12px 0; }
+  .task-list { list-style: none; padding: 0; margin: 12px 0; display: grid; gap: 8px; }
+  .task-item { display: grid; grid-template-columns: 1fr auto auto; align-items: center; gap: 8px; padding: 10px; border: 1px solid #ddd; border-radius: 8px; }
+  .delete-btn, .done-btn { padding: 6px 10px; border-radius: 6px; border: 1px solid #ccc; background: #f5f5f5; cursor: pointer; }
+`;
+document.head.appendChild(styleBase);
 
 // Создаем основу
 const app = document.createElement('div');
