@@ -14,7 +14,7 @@ styleBase.textContent = `
   .app { max-width: 760px; margin: 24px auto; font-family: system-ui, Arial, sans-serif; }
   .task-form { display: grid; grid-template-columns: 1fr 160px auto; gap: 8px; margin: 12px 0; }
   .task-list { list-style: none; padding: 0; margin: 12px 0; display: grid; gap: 8px; }
-  .task-item { display: grid; grid-template-columns: 1fr 160px auto auto; align-items: center; gap: 8px; padding: 10px; border: 1px solid #ddd; border-radius: 8px; }
+  .task-item { display: flex; justify-content: space-between; align-items: center; gap: 8px; padding: 10px; border: 1px solid #ddd; border-radius: 8px; flex-wrap: wrap; }
   .task-date { text-align: right; }
 
   .delete-btn, .done-btn { padding: 6px 10px; border-radius: 6px; border: 1px solid #ccc; background: #f5f5f5; cursor: pointer; width: auto; display: inline-block; text-align: center; min-width: 32px; }
@@ -112,6 +112,12 @@ const doneButton = document.createElement('button');
 doneButton.className = 'done-btn';
 doneButton.textContent = 'Выполнено';
 li.appendChild(doneButton);
+
+// Кнопка редактирования
+const editButton = document.createElement('button');
+editButton.className = 'edit-btn';
+editButton.textContent = 'Редактировать';
+li.appendChild(editButton);
 
 // В обработчике отметить задачу как выполненную
 doneButton.addEventListener('click', () => {
