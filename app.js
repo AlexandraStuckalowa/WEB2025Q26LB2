@@ -104,7 +104,7 @@ app.appendChild(taskList);
 
 // Добавляем обработчик отправки формы
 form.addEventListener('submit', (e) => {
-  e.preventDefault(); // не перезагружать страницу
+  e.preventDefault(); 
 });
 
 // В обработчике: подготовка данных из формы
@@ -121,6 +121,11 @@ form.addEventListener('submit', (e) => {
   // создаём элемент задачи и добавляем в список
   const li = document.createElement('li');
   li.className = 'task-item';
+
+  // Данные для сортировки
+li.dataset.status = 'active';   
+li.dataset.date = due || '';          
+
 
   const spanTitle = document.createElement('span');
   spanTitle.className = 'task-title';
@@ -229,7 +234,9 @@ editButton.addEventListener('click', () => {
 // В обработчике отметить задачу как выполненную
 doneButton.addEventListener('click', () => {
   li.classList.toggle('completed');
+  li.dataset.status = li.classList.contains('completed') ? 'done' : 'active';
 });
+
 
 
 // Обработчик на кнопку удаления
