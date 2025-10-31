@@ -60,6 +60,11 @@ form.append(inputText, inputDate, addButton);
 // Вставляем форму на страницу
 app.appendChild(form);
 
+// Панель управления списком
+const controls = document.createElement('div');
+controls.className = 'controls';
+app.appendChild(controls);
+
 // Добавляем основу для списка задач
 const taskList = document.createElement('ul');
 taskList.className = 'task-list';
