@@ -1,3 +1,13 @@
+// Как выглядит выполненная задача
+const styleCompleted = document.createElement('style');
+styleCompleted.textContent = `
+  .task-item.completed .task-title {
+    text-decoration: line-through;
+    opacity: 0.6;
+  }
+`;
+document.head.appendChild(styleCompleted);
+
 // Создаем основу
 const app = document.createElement('div');
 app.className = 'app';
