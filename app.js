@@ -82,6 +82,13 @@ deleteButton.className = 'delete-btn';
 deleteButton.textContent = 'Удалить';
 li.appendChild(deleteButton);
 
+// Кнопка для отметки выполнения задачи
+const doneButton = document.createElement('button');
+doneButton.className = 'done-btn';
+doneButton.textContent = '✔';
+li.appendChild(doneButton);
+
+
 // Обработчик на кнопку удаления
 deleteButton.addEventListener('click', () => {
   li.remove();
