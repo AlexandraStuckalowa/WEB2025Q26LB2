@@ -270,3 +270,23 @@ statusFilter.addEventListener('change', () => {
   });
 });
 
+//Сортировка по дате
+sortSelect.addEventListener('change', () => {
+  const mode = sortSelect.value; // none|asc|desc
+  const items = [...taskList.children];
+
+  if (mode === 'none') return;
+
+  items.sort((a, b) => {
+    const da = a.dataset.date || '';
+    const db = b.dataset.date || '';
+    // пустые даты отправляем в конец при asc, в начало при desc
+    if (!da && !db) return 0;
+    if (!da) return mode === 'asc' ? 1 : -1;
+    if (!db) return mode === 'asc' ? -1 : 1;
+    return mode === 'asc' ? da.localeCompare(db) : db.localeCompare(da);
+  });
+
+  // изменяем порядок
+  items.forEach(el => taskList.appendChild(el));
+});
