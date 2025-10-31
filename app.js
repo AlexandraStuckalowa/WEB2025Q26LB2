@@ -88,6 +88,11 @@ doneButton.className = 'done-btn';
 doneButton.textContent = '✔';
 li.appendChild(doneButton);
 
+// В обработчике отметить задачу как выполненную
+doneButton.addEventListener('click', () => {
+  li.classList.toggle('completed');
+});
+
 
 // Обработчик на кнопку удаления
 deleteButton.addEventListener('click', () => {
