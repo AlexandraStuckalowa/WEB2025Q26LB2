@@ -14,8 +14,11 @@ styleBase.textContent = `
   .app { max-width: 760px; margin: 24px auto; font-family: system-ui, Arial, sans-serif; }
   .task-form { display: grid; grid-template-columns: 1fr 160px auto; gap: 8px; margin: 12px 0; }
   .task-list { list-style: none; padding: 0; margin: 12px 0; display: grid; gap: 8px; }
-  .task-item { display: grid; grid-template-columns: 1fr auto auto; align-items: center; gap: 8px; padding: 10px; border: 1px solid #ddd; border-radius: 8px; }
-  .delete-btn, .done-btn { padding: 6px 10px; border-radius: 6px; border: 1px solid #ccc; background: #f5f5f5; cursor: pointer; }
+  .task-item { display: grid; grid-template-columns: 1fr 160px auto auto; align-items: center; gap: 8px; padding: 10px; border: 1px solid #ddd; border-radius: 8px; }
+  .task-date { text-align: right; }
+
+  .delete-btn, .done-btn { padding: 6px 10px; border-radius: 6px; border: 1px solid #ccc; background: #f5f5f5; cursor: pointer; width: auto; display: inline-block; text-align: center; min-width: 32px; }
+
 `;
 document.head.appendChild(styleBase);
 
@@ -88,15 +91,15 @@ form.addEventListener('submit', (e) => {
   spanTitle.textContent = title;
 
   // дата (если указана)
-  if (due) {
-    const spanDate = document.createElement('span');
-    spanDate.className = 'task-date';
-    spanDate.textContent = due;
-    li.appendChild(spanDate);
-  }
 
   li.appendChild(spanTitle);
 
+  if (due) {
+  const spanDate = document.createElement('span');
+  spanDate.className = 'task-date';
+  spanDate.textContent = due;
+  li.appendChild(spanDate);
+}
 // Кнопка для удаления задачи
 const deleteButton = document.createElement('button');
 deleteButton.className = 'delete-btn';
@@ -106,7 +109,7 @@ li.appendChild(deleteButton);
 // Кнопка для отметки выполнения задачи
 const doneButton = document.createElement('button');
 doneButton.className = 'done-btn';
-doneButton.textContent = '✔';
+doneButton.textContent = 'Выполнено';
 li.appendChild(doneButton);
 
 // В обработчике отметить задачу как выполненную
