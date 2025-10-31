@@ -19,6 +19,9 @@ styleBase.textContent = `
 
   .delete-btn, .done-btn { padding: 6px 10px; border-radius: 6px; border: 1px solid #ccc; background: #f5f5f5; cursor: pointer; width: auto; display: inline-block; text-align: center; min-width: 32px; }
   .edit-btn { padding: 6px 10px; border-radius: 6px; border: 1px solid #ccc; background: #f5f5f5; cursor: pointer; }
+  .controls { display: flex; gap: 8px; margin: 8px 0 12px; }
+  .controls .search, .controls select { padding: 8px; border: 1px solid #ddd; border-radius: 6px; }
+  .controls .search { flex: 1; }
 
 `;
 document.head.appendChild(styleBase);
