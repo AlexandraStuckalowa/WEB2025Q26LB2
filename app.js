@@ -24,7 +24,13 @@ inputText.required = true;
 const inputDate = document.createElement('input');
 inputDate.type = 'date';
 
-// Кнопка для добавления задачи
+// Добавляем кнопку для создания задачи
 const addButton = document.createElement('button');
 addButton.type = 'submit';
 addButton.textContent = 'Добавить';
+
+// Добавляем все внутрь формы
+form.append(inputText, inputDate, addButton);
+
+// Вставляем форму в приложение
+app.appendChild(form);
