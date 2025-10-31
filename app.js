@@ -32,5 +32,13 @@ addButton.textContent = 'Добавить';
 // Добавляем все внутрь формы
 form.append(inputText, inputDate, addButton);
 
-// Вставляем форму в приложение
+// Вставляем форму на страницу
 app.appendChild(form);
+
+// Добавляем основу для списка задач
+const taskList = document.createElement('ul');
+taskList.className = 'task-list';
+
+// Добавляем основу на сайт
+app.appendChild(taskList);
+
