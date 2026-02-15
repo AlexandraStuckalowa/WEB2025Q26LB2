@@ -78,24 +78,44 @@ searchInput.className = 'search';
 controls.appendChild(searchInput);
 
 // Фильтр по статусу
+
 const statusFilter = document.createElement('select');
 statusFilter.className = 'status-filter';
-statusFilter.innerHTML = `
-  <option value="all">Все</option>
-  <option value="active">Невыполнено</option>
-  <option value="done">Выполнено</option>
-`;
 controls.appendChild(statusFilter);
 
+const optAll = document.createElement('option');
+optAll.value = 'all';
+optAll.textContent = 'Все';
+
+const optActive = document.createElement('option');
+optActive.value = 'active';
+optActive.textContent = 'Невыполнено';
+
+const optDone = document.createElement('option');
+optDone.value = 'done';
+optDone.textContent = 'Выполнено';
+
+statusFilter.append(optAll, optActive, optDone);
+
 // Сортировка по дате
+
 const sortSelect = document.createElement('select');
 sortSelect.className = 'date-sort';
-sortSelect.innerHTML = `
-  <option value="none">Без сортировки</option>
-  <option value="asc">По дате ↑</option>
-  <option value="desc">По дате ↓</option>
-`;
 controls.appendChild(sortSelect);
+
+const optNone = document.createElement('option');
+optNone.value = 'none';
+optNone.textContent = 'Без сортировки';
+
+const optAsc = document.createElement('option');
+optAsc.value = 'asc';
+optAsc.textContent = 'По дате ⭡';
+
+const optDesc = document.createElement('option');
+optDesc.value = 'desc';
+optDesc.textContent = 'По дате ⭣';
+
+sortSelect.append(optNone, optAsc, optDesc);
 
 // Добавляем основу для списка задач
 const taskList = document.createElement('ul');
